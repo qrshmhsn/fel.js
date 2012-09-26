@@ -5,30 +5,42 @@
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="../dist/fel.js"></script>
 		<script type="text/javascript">
-			$(document).on("ready", function(){
-				var templates = {};
-				$('script[type="text/x-template"]').each(function(index, item){
-					el = $(item);
-					name = el.attr("data-name");
-					content = el.html();
-					templates[name] = content;
-				});
-				console.log(templates);
-				translations = {
-					ru: {
-						"main": "главная",
-						"hello, {0}": "привет {0}"
-					}
-				};
-				var options = {
-					views: {
-						templates: templates,
-						translations: translations
-					}
-				};
-				window.app = new fel.core.Application(options);
-				console.log(app.viewer.templates.main_page());
+			var Application = fel.core.Application.$extend({
+				__init__: function(){
+					var self = this;
+					$(document).on("ready", function(){
+						var templates = {};
+						$('script[type="text/x-template"]').each(function(index, item){
+							el = $(item);
+							name = el.attr("data-name");
+							content = el.html();
+							templates[name] = content;
+						});
+						translations = {
+							ru: {
+								"main": "главная",
+								"hello, {0}": "привет {0}"
+							}
+						};
+						self.options = {
+							application: {
+								autostart: true
+							},
+							views: {
+								templates: templates,
+								translations: translations
+							},
+							events: {
+								"application.after_start": function(app){ console.log("app started!"); }
+							}
+						};
+						self.start();
+						console.log(app.viewer.templates.main_page());
+						console.log("tr", app.translator.translate("hello, {0}", "Stas"));
+					});
+				}
 			});
+			window.app = new Application();
 		</script>
 		<script data-name="page" type="text/x-template">
 			{%block before_page %}{%endblock%}
