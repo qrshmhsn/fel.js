@@ -37,15 +37,9 @@
 										console.log("entered to login"); 
 										state_manager.event("logged_in");
 									},
-									logged_in: function(state_manager){ state_manager.transition("chat"); }
+									logged_in: "chat" //you can define next state as string
 								},
-								chat: {
-									enter: function(state_manager){ 
-										console.log("entered to chat"); 
-										state_manager.event("send");
-									},
-									send: function(){ console.log("i sent msg!"); }
-								}
+								chat: ChatController
 							}
 						};
 						self.start(options);
@@ -56,7 +50,13 @@
 				}
 			});
 			window.app = new Application();
-			console.assert(app === new Application());
+			window.ChatController = fel.controllers.Controller.extend({
+				enter: function(state_manager){ 
+					console.log("entered to chat"); 
+					state_manager.event("send");
+				},
+				send: function(){ console.log("i sent msg!"); }
+			});
 		</script>
 		<script data-name="page" type="text/x-template">
 			{%block before_page %}{%endblock%}

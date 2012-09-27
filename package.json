@@ -10,7 +10,8 @@
     "uglify-js": "latest",
   	"coffee-script": "latest",
     "swig": "latest",
-    "eventemitter2": "latest"
+    "eventemitter2": "latest",
+    "underscore": "latest"
   },
   "main": "index",
   "engines": { 
