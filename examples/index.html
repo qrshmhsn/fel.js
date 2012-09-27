@@ -33,36 +33,30 @@
 							states: {
 								initial: "login",
 								login: {
+									enter: function(){ 
+										console.log("entered to login"); 
+										app.state_manager.event("logged_in");
+									},
 									logged_in: function(){ app.state_manager.transition("chat"); }
 								},
 								chat: {
-									send: function(){ console.log("i sent msg!"); },
-									exit: function(){ app.state_manager.transition("login"); }
+									enter: function(){ 
+										console.log("entered to chat"); 
+										app.state_manager.event("send");
+									},
+									send: function(){ console.log("i sent msg!"); }
 								}
 							}
 						};
 						self.start(options);
-						console.log(app.viewer.templates.main_page());
-						console.log("tr", app.translator.translate("hello, {0}", "Stas"));
-						console.log("tr", fel.views.Translator().translate("hello, {0}", "Stas"));
-						app.eventer.emit("logged_in");
+						//console.log(app.viewer.templates.main_page());
+						//console.log("tr", app.translator.translate("hello, {0}", "Stas"));
+						//console.log("tr", fel.views.Translator().translate("hello, {0}", "Stas"));
 					});
 				}
 			});
 			window.app = new Application();
 			console.assert(app === new Application());
-			var Cl = fel.core.Singleton.extend({
-				__init__: function(name){
-					console.log("base init", name);
-				}
-			});
-			var Cl2 = Cl.extend({
-				__init__: function(name, age){
-					console.log("child init", name, age, this.instance);
-				}
-			});
-			var c = new Cl2("stas", 24);
-			console.assert(c === new Cl2("boris", 22));
 		</script>
 		<script data-name="page" type="text/x-template">
 			{%block before_page %}{%endblock%}
