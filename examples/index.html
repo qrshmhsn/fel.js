@@ -33,16 +33,16 @@
 							states: {
 								initial: "login",
 								login: {
-									enter: function(){ 
+									enter: function(state_manager){ 
 										console.log("entered to login"); 
-										app.state_manager.event("logged_in");
+										state_manager.event("logged_in");
 									},
-									logged_in: function(){ app.state_manager.transition("chat"); }
+									logged_in: function(state_manager){ state_manager.transition("chat"); }
 								},
 								chat: {
-									enter: function(){ 
+									enter: function(state_manager){ 
 										console.log("entered to chat"); 
-										app.state_manager.event("send");
+										state_manager.event("send");
 									},
 									send: function(){ console.log("i sent msg!"); }
 								}
