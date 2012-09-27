@@ -1,4 +1,6 @@
-class Object
+Class = require("./classy").Class;
+
+class Object extends Class
 	@is_empty: (obj) ->
 		for key, value of obj
 			return false
@@ -18,6 +20,13 @@ class Object
 				else
 					Object.merge(value, obj2[key])
 		return obj1
+
+class Singleton extends Object
+	@instance: undefined	
+	constructor: () ->
+		if Singleton.instance isnt undefined
+			return Singleton.instance
+		Singleton.instance = this
 ###
 options =
 	views:
@@ -35,3 +44,4 @@ options = Object.merge(options, options2)
 console.log(options)
 ###
 exports.Object = Object
+exports.Singleton = Object

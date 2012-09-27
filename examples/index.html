@@ -8,6 +8,7 @@
 			var Application = fel.core.Application.$extend({
 				__init__: function(){
 					var self = this;
+					//fel.core.Application.__init__();
 					$(document).on("ready", function(){
 						var templates = {};
 						$('script[type="text/x-template"]').each(function(index, item){
@@ -41,6 +42,20 @@
 				}
 			});
 			window.app = new Application();
+			var Cl = fel.core.Object.$extend({
+				__init__: function(name){
+					console.log("base init", name);
+				}
+			});
+			var Cl2 = Cl.$extend({
+				__init__: function(name, age){
+					//console.log(this);
+					//this.base.__init__();
+					console.log("child init", name, age);
+				}
+			});
+			new Cl2("stas", 24);
+			//console.assert(app === new Application());
 		</script>
 		<script data-name="page" type="text/x-template">
 			{%block before_page %}{%endblock%}
