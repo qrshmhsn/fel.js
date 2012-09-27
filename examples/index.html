@@ -22,22 +22,30 @@
 								"hello, {0}": "привет {0}"
 							}
 						};
-						self.options = {
-							application: {
-								autostart: true
-							},
+						var options = {
 							views: {
 								templates: templates,
 								translations: translations
 							},
 							events: {
 								"application.after_start": function(app){ console.log("app started!"); }
+							},
+							states: {
+								initial: "login",
+								login: {
+									logged_in: function(){ app.state_manager.transition("chat"); }
+								},
+								chat: {
+									send: function(){ console.log("i sent msg!"); },
+									exit: function(){ app.state_manager.transition("login"); }
+								}
 							}
 						};
-						self.start();
+						self.start(options);
 						console.log(app.viewer.templates.main_page());
 						console.log("tr", app.translator.translate("hello, {0}", "Stas"));
 						console.log("tr", fel.views.Translator().translate("hello, {0}", "Stas"));
+						app.eventer.emit("logged_in");
 					});
 				}
 			});
