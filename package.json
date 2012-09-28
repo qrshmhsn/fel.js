@@ -8,7 +8,6 @@
   "dependencies": {
   	"browserify": "latest",
     "uglify-js": "latest",
-  	"coffee-script": "latest",
     "swig": "latest",
     "eventemitter2": "latest",
     "underscore": "latest"
