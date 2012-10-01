@@ -10,7 +10,8 @@
     "uglify-js": "latest",
     "swig": "latest",
     "eventemitter2": "latest",
-    "underscore": "latest"
+    "underscore": "latest",
+    "br-jquery": "latest"
   },
   "main": "index",
   "engines": { 

@@ -2,21 +2,13 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>index</title>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="../dist/fel.js"></script>
 		<script type="text/javascript">
 			var Application = fel.core.Application.extend({
 				__init__: function(){
 					var self = this;
 					$(document).on("ready", function(){
-						var templates = {};
-						$('script[type="text/x-template"]').each(function(index, item){
-							el = $(item);
-							name = el.attr("data-name");
-							content = el.html();
-							templates[name] = content;
-						});
-						translations = {
+						var translations = {
 							ru: {
 								"main": "главная",
 								"hello, {0}": "привет {0}"
@@ -24,7 +16,6 @@
 						};
 						var options = {
 							views: {
-								templates: templates,
 								translations: translations
 							},
 							events: {
@@ -52,7 +43,9 @@
 			window.app = new Application();
 			window.ChatController = fel.controllers.Controller.extend({
 				enter: function(state_manager){ 
-					console.log("entered to chat"); 
+					console.log("entered to chat");
+					var v = new fel.views.View("main_page", {foo: "bar"});
+					v.render("#container");
 					state_manager.event("send");
 				},
 				send: function(){ console.log("i sent msg!"); }
@@ -77,9 +70,10 @@
 			{%extends "page" %}
 			{% set page_id = "main_page" %}
 			{%block header %}
-				<h3>Лого{{"main"|trans}}</h3>
+				<h3>{{"main"|trans}}</h3>
 			{% endblock %}
 			{%block content %}
+				foo: {{foo}}
 			    <ul data-role="listview">
 			        <li data-icon="false"><a href="#">Home</a></li>
 			        <li data-icon="false"><a href="#">About </a></li>
@@ -91,6 +85,8 @@
 		</script>
 	</head>
 	<body>
-		lala
+		header
+		<div id="container"></div>
+		footer
 	</body>
 </html>
