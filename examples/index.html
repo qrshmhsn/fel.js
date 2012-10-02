@@ -16,27 +16,29 @@
 						};
 						var options = {
 							views: {
-								translations: translations
+								translations: {
+									source: translations
+								}
 							},
 							events: {
 								"application.after_start": function(app){ console.log("app started!"); }
 							},
-							states: {
-								initial: "login",
-								login: {
-									enter: function(state_manager){ 
-										console.log("entered to login"); 
-										state_manager.event("logged_in");
+							controllers:{
+								initial_state: "login",
+								states: {
+									login: {
+										enter: function(state_manager){ 
+											console.log("entered to login"); 
+											state_manager.event("logged_in");
+										},
+										logged_in: "chat" //you can define next state as string
 									},
-									logged_in: "chat" //you can define next state as string
-								},
-								chat: ChatController
+									chat: ChatController
+								}
 							}
 						};
 						self.start(options);
-						//console.log(app.viewer.templates.main_page());
-						//console.log("tr", app.translator.translate("hello, {0}", "Stas"));
-						//console.log("tr", fel.views.Translator().translate("hello, {0}", "Stas"));
+						console.log("tr", fel.views.Translator().translate("hello, {0}", "Stas"));
 					});
 				}
 			});
