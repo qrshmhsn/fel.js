@@ -4,6 +4,7 @@ var fel = {};
 fel.core = require('./lib/core');
 fel.views = require('./lib/views');
 fel.controllers = require("./lib/controllers");
+fel.models = require("./lib/models");
 exports.$ = require("br-jquery");
 exports._ = require("underscore");
 exports.fel = fel;
