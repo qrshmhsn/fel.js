@@ -57,11 +57,16 @@
 				man: "boolean"
 			});
 			var user1 = new User({id: "stas", age:23, occupation: "programmer", birthday: new Date(), man: true});
-			console.log(user1);
 			user1.save(function(obj){
 				console.log("saved", obj);
 				User.get("stas", function(obj2){
 					console.log("getted", obj2, typeof obj2.man, typeof obj2.age);
+				});
+				User.find(function(obj){ return obj.age < 24; }, function(obj){
+					console.log("finded by iterator", obj, typeof obj)
+				});
+				User.find({"age": 23}, function(obj){
+					console.log("finded by example", obj, typeof obj)
 				});
 			});
 		</script>
