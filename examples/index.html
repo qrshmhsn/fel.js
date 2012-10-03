@@ -52,6 +52,15 @@
 				},
 				send: function(){ console.log("i sent msg!"); }
 			});
+			var User = fel.models.Model.define("User");
+			var user1 = new User("stas", {age:23, occupations:"programmer", birthday: new Date(), man: true});
+			console.log(user1);
+			user1.save(function(obj){
+				console.log("saved", obj);
+				User.get("stas", function(obj2){
+					console.log("getted", obj2, typeof obj2.value.man, typeof obj2.value.age);
+				});
+			});
 		</script>
 		<script data-name="page" type="text/x-template">
 			{%block before_page %}{%endblock%}
