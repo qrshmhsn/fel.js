@@ -56,17 +56,21 @@
 				age: "int",
 				man: "boolean"
 			});
+			User.remove_all();
 			var user1 = new User({id: "stas", age:23, occupation: "programmer", birthday: new Date(), man: true});
 			user1.save(function(obj){
 				console.log("saved", obj);
 				User.get("stas", function(obj2){
 					console.log("getted", obj2, typeof obj2.man, typeof obj2.age);
 				});
-				User.find(function(obj){ return obj.age < 24; }, function(obj){
-					console.log("finded by iterator", obj, typeof obj)
+				User.find(function(obj){ return obj.age < 24; }, function(objs){
+					console.log("finded by iterator", objs, typeof objs);
 				});
 				User.find({"age": 23}, function(obj){
-					console.log("finded by example", obj, typeof obj)
+					console.log("finded by example", obj, typeof obj);
+				});
+				User.exists("stas", function(is_exists){
+					console.log("exists", is_exists);
 				});
 			});
 		</script>
