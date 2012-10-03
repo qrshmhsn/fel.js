@@ -21,7 +21,31 @@
 								}
 							},
 							events: {
-								"application.after_start": function(app){ console.log("app started!"); }
+								"application.after_start": function(app){
+									console.log("app started!"); 
+									/*var User = fel.models.Model.define("User",{
+										age: "int",
+										man: "boolean"
+									});*/
+									var User = app.models_manager.User;
+									User.remove_all();
+									var user1 = new User({id: "stas", age:23, occupation: "programmer", birthday: new Date(), man: true});
+									user1.save(function(obj){
+										console.log("saved", obj);
+										User.get("stas", function(obj2){
+											console.log("getted", obj2, typeof obj2.man, typeof obj2.age);
+										});
+										User.find(function(obj){ return obj.age < 24; }, function(objs){
+											console.log("finded by iterator", objs, typeof objs);
+										});
+										User.find({"age": 23}, function(obj){
+											console.log("finded by example", obj, typeof obj);
+										});
+										User.exists("stas", function(is_exists){
+											console.log("exists", is_exists);
+										});
+									});
+								}
 							},
 							controllers:{
 								initial_state: "login",
@@ -34,6 +58,12 @@
 										logged_in: "chat" //you can define next state as string
 									},
 									chat: ChatController
+								}
+							},
+							models: {
+								User: {
+									age: "int",
+									man: "boolean"
 								}
 							}
 						};
@@ -51,27 +81,6 @@
 					state_manager.event("send");
 				},
 				send: function(){ console.log("i sent msg!"); }
-			});
-			var User = fel.models.Model.define("User",{
-				age: "int",
-				man: "boolean"
-			});
-			User.remove_all();
-			var user1 = new User({id: "stas", age:23, occupation: "programmer", birthday: new Date(), man: true});
-			user1.save(function(obj){
-				console.log("saved", obj);
-				User.get("stas", function(obj2){
-					console.log("getted", obj2, typeof obj2.man, typeof obj2.age);
-				});
-				User.find(function(obj){ return obj.age < 24; }, function(objs){
-					console.log("finded by iterator", objs, typeof objs);
-				});
-				User.find({"age": 23}, function(obj){
-					console.log("finded by example", obj, typeof obj);
-				});
-				User.exists("stas", function(is_exists){
-					console.log("exists", is_exists);
-				});
 			});
 		</script>
 		<script data-name="page" type="text/x-template">

@@ -1,6 +1,5 @@
 {
   "name": "fel.js",
-  "version": "0.0.1",
   "description": "Javascript mvc framework for browser",
   "keywords": ["web", "framework", "mvc"],
   "repository": "git://github.com/stanislavfeldman/fel.js.git",
