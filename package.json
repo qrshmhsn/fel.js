@@ -1,6 +1,6 @@
 {
   "name": "fel.js",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Javascript mvc framework for browser",
   "keywords": ["web", "framework", "mvc"],
   "repository": "git://github.com/stanislavfeldman/fel.js.git",
@@ -11,7 +11,8 @@
     "swig": "latest",
     "eventemitter2": "latest",
     "underscore": "latest",
-    "br-jquery": "latest"
+    "br-jquery": "latest",
+    "async": "latest"
   },
   "main": "index",
   "engines": { 
