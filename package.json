@@ -6,9 +6,8 @@
   "repository": "git://github.com/stanislavfeldman/fel.js.git",
   "author": "Stanislav Feldman <stanislavfeldman@gmail.com>",
   "dependencies": {
-  	"browserify": "latest",
     "uglify-js": "latest",
-    "swig": "latest",
+    "swig": "https://github.com/stanislavfeldman/swig/tarball/master",
     "eventemitter2": "latest",
     "underscore": "latest",
     "br-jquery": "latest",
