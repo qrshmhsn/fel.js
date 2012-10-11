@@ -24,12 +24,12 @@
 								"application.after_start": function(app){
 									console.log("app started!"); 
 									/*var User = fel.models.Model.define("User",{
-										age: "int",
+										age: "number",
 										man: "boolean"
 									});*/
 									var User = app.models_manager.User;
 									User.remove_all();
-									var user1 = new User({id: "stas", age:23, occupation: "programmer", birthday: new Date(), man: true});
+									var user1 = new User({id: "stas", age:24, birthday: new Date(), man: true});
 									fel.core.async.waterfall([
 										function(callback){
 											user1.save(function(obj){
@@ -41,7 +41,8 @@
 											fel.core.async.parallel([
 												function(callback){
 													User.get(obj.id, function(obj2){
-														console.log("getted", obj2, typeof obj2.man, typeof obj2.age);
+														console.log("getted", obj2, 
+															_.isBoolean(obj2.man), _.isNumber(obj2.age), _.isDate(obj2.birthday));
 														callback(null, obj2);
 													});
 												},
@@ -103,8 +104,10 @@
 							},
 							models: {
 								User: {
-									age: "int",
-									man: "boolean"
+									id: "string",
+									age: "number",
+									man: "boolean",
+									birthday: "date"
 								}
 							}
 						};
