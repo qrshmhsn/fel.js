@@ -23,6 +23,8 @@
 							events: {
 								"application.after_start": function(app){
 									console.log("app started!"); 
+									self.var1 = "first value";
+									setTimeout(function(){ self.var1 = "second value"; }, 1000);
 									/*var User = fel.models.Model.define("User",{
 										age: "number",
 										man: "boolean"
@@ -87,6 +89,9 @@
 									    }
 									    console.log(result);
 									});
+									setTimeout(function(){
+										app.var1 = "boris";
+									}, 2000);
 								}
 							},
 							controllers:{
@@ -149,7 +154,8 @@
 				<h3>{{"main"|trans}}</h3>
 			{% endblock %}
 			{%block content %}
-				foo: {{foo}}
+				foo: {{foo}}<br/>
+				morph: <div id="morph">{{"app.var1"|binding}}</div>
 			    <ul data-role="listview">
 			        <li data-icon="false"><a href="#">Home</a></li>
 			        <li data-icon="false"><a href="#">About </a></li>
