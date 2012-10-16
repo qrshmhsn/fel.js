@@ -148,7 +148,9 @@
 		<script data-name="main_page" type="text/x-template">
 			{>page/}
 			{<header}
+				{@set v="main" a="55"/}
 				<h3>{@trans value="main"/}</h3>
+				<h2>{v|trans|title}</h2>
 			{/header}
 			{<content}
 				foo: {foo}<br/>
