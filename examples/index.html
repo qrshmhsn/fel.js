@@ -133,37 +133,35 @@
 			});
 		</script>
 		<script data-name="page" type="text/x-template">
-			{%block before_page %}{%endblock%}
-			<div id="{{page_id}}" data-role="page">
+			<div data-role="page">
 				<div data-role="header" data-position="fixed" style="text-align: center;">
-					{%block header %}{% endblock %}
+					{+header}{/header}
 				</div>
 				<div data-role="content">
-					{%block content %}{% endblock %}
+					{+content}{/content}
 				</div>
 				<div data-role="footer" data-position="fixed">
-					{%block footer %}{% endblock %}
+					{+footer}{/footer}
 				</div>
 			</div>
-			{%block after_page %}{%endblock%}
 		</script>
 		<script data-name="main_page" type="text/x-template">
-			{%extends "page" %}
-			{% set page_id = "main_page" %}
-			{%block header %}
-				<h3>{{"main"|trans}}</h3>
-			{% endblock %}
-			{%block content %}
-				foo: {{foo}}<br/>
-				morph: <div id="morph">{{"app.var1"|binding}}</div>
+			{>page/}
+			{<header}
+				<h3>{@trans value="main"/}</h3>
+			{/header}
+			{<content}
+				foo: {foo}<br/>
+				morph: <div id="morph">{@binding value="app.var1"/}</div>
+				morph2: <div>{@binding value="app.var1"/}</div>
+				<div>morph attr</div>
 			    <ul data-role="listview">
 			        <li data-icon="false"><a href="#">Home</a></li>
 			        <li data-icon="false"><a href="#">About </a></li>
 			        <li data-icon="false"><a href="#">Portfolio </a></li>
 			        <li data-icon="false"><a href="#">Contact </a></li>
 			    </ul>
-			{%endblock%}
-			{%block footer %}{% endblock %}
+			{/content}
 		</script>
 	</head>
 	<body>
