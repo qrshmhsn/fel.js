@@ -11,7 +11,8 @@
     "underscore": "latest",
     "br-jquery": "latest",
     "async": "latest",
-    "dust.js": "latest"
+    "dustjs-linkedin": "latest",
+    "dustjs-helpers": "latest"
   },
   "main": "index",
   "engines": { 
