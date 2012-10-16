@@ -149,7 +149,7 @@
 			{>page/}
 			{<header}
 				{@set v="main" a="55"/}
-				<h3>{@trans value="main"/}</h3>
+				<h3>{@trans value="main" filters="title,test"/}</h3>
 				<h2>{v|trans|title}</h2>
 			{/header}
 			{<content}
