@@ -27,7 +27,8 @@
 									setTimeout(function(){ self.var1 = "second value"; }, 1000);
 									var User = fel.models.Model.define("User",{
 										age: "number",
-										man: "boolean"
+										man: "boolean",
+										messages: {model: "Message", many: true, key: "user"}
 									});
 									var User2 = User.inherit("User2", {
 										superman: "boolean"
@@ -37,7 +38,7 @@
 									User2.remove_all();
 									var Message = fel.models.Model.define("Message",{
 										value: "string",
-										user: {model: User} //relation
+										user: {model: "User"} //relation
 									});
 									Message.remove_all();
 									/*var user2 = new User2({id: "boris", age: 23, superman: true});
@@ -58,16 +59,16 @@
 											});
 										},
 										function(obj){
-											var msg1 = new Message({value: "test msg", user: "stas"});
-											msg1.save(function(m){
-												console.log("saved message with user", m.user.id);
-											});
 											fel.core.async.parallel([
 												function(callback){
-													User.get(obj.id, function(obj2){
-														console.log("getted", obj2, 
-															_.isBoolean(obj2.man), _.isNumber(obj2.age), _.isDate(obj2.birthday));
-														callback(null, obj2);
+													Message.save_all([{value: "one more msg", user: "stas"}, 
+														{value: "another msg", user: "stas"}], function(){
+														User.get(obj.id, function(obj2){
+															console.log("getted", obj2, 
+																_.isBoolean(obj2.man), _.isNumber(obj2.age), _.isDate(obj2.birthday), 
+																	obj2.messages);
+															callback(null, obj2);
+														});
 													});
 												},
 												function(callback){
