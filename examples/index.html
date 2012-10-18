@@ -25,12 +25,18 @@
 									console.log("app started!"); 
 									self.var1 = "first value";
 									setTimeout(function(){ self.var1 = "second value"; }, 1000);
-									/*var User = fel.models.Model.define("User",{
+									var User = fel.models.Model.define("User",{
 										age: "number",
 										man: "boolean"
-									});*/
-									var User = app.models_manager.User;
+									});
+									console.log(User.fields);
+									//var User = app.models_manager.User;
 									User.remove_all();
+									var Message = fel.models.Model.define("Message",{
+										value: "string",
+										user: {model: User} //relation
+									});
+									Message.remove_all();
 									var user1 = new User({id: "stas", age:24, birthday: new Date(), man: true});
 									fel.core.async.waterfall([
 										function(callback){
@@ -40,6 +46,10 @@
 											});
 										},
 										function(obj){
+											var msg1 = new Message({value: "test msg", user: "stas"});
+											msg1.save(function(m){
+												console.log("saved message", m);
+											});
 											fel.core.async.parallel([
 												function(callback){
 													User.get(obj.id, function(obj2){
@@ -106,7 +116,7 @@
 									},
 									chat: ChatController
 								}
-							},
+							}/*,
 							models: {
 								User: {
 									id: "string",
@@ -114,7 +124,7 @@
 									man: "boolean",
 									birthday: "date"
 								}
-							}
+							}*/
 						};
 						self.start(options);
 						console.log("tr", fel.views.Translator().translate("hello, {0}", "Stas"));
