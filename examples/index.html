@@ -29,14 +29,23 @@
 										age: "number",
 										man: "boolean"
 									});
-									console.log(User.fields);
+									var User2 = User.inherit("User2", {
+										superman: "boolean"
+									});
 									//var User = app.models_manager.User;
 									User.remove_all();
+									User2.remove_all();
 									var Message = fel.models.Model.define("Message",{
 										value: "string",
 										user: {model: User} //relation
 									});
 									Message.remove_all();
+									var user2 = new User2({id: "boris", age: 23, superman: true});
+									user2.save(function(){
+										User2.get("boris", function(u2){
+											console.log("getted user2", u2);
+										});
+									});
 									var user1 = new User({id: "stas", age:24, birthday: new Date(), man: true});
 									fel.core.async.waterfall([
 										function(callback){
@@ -46,7 +55,7 @@
 											});
 										},
 										function(obj){
-											var msg1 = new Message({value: "test msg", user: "stas"});
+											var msg1 = new Message({value: "test msg", user: "boris"});
 											msg1.save(function(m){
 												console.log("saved message", m);
 											});
