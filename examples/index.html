@@ -42,8 +42,8 @@
 									Message.remove_all();
 									var user2 = new User2({id: "boris", age: 23, superman: true});
 									user2.save(function(){
-										User2.get("boris", function(u2){
-											console.log("getted user2", u2);
+										User2.all(function(u2s){
+											console.log("getted user2 objects", u2s);
 										});
 									});
 									var user1 = new User({id: "stas", age:24, birthday: new Date(), man: true});
