@@ -40,12 +40,12 @@
 										user: {model: User} //relation
 									});
 									Message.remove_all();
-									var user2 = new User2({id: "boris", age: 23, superman: true});
+									/*var user2 = new User2({id: "boris", age: 23, superman: true});
 									user2.save(function(){
 										User2.all(function(u2s){
 											console.log("getted user2 objects", u2s);
 										});
-									});
+									});*/
 									var user1 = new User({id: "stas", age:24, birthday: new Date(), man: true});
 									fel.core.async.waterfall([
 										function(callback){
@@ -55,9 +55,9 @@
 											});
 										},
 										function(obj){
-											var msg1 = new Message({value: "test msg", user: "boris"});
+											var msg1 = new Message({value: "test msg", user: "stas"});
 											msg1.save(function(m){
-												console.log("saved message", m);
+												console.log("saved message with user", m.user.id);
 											});
 											fel.core.async.parallel([
 												function(callback){
