@@ -46,6 +46,9 @@
 											console.log("getted user2 objects", u2s);
 										});
 									});*/
+									User.save_all([{id: "ivan"}, {id: "kolyan"}], function(objs){
+										console.log("saved_all", objs);
+									});
 									var user1 = new User({id: "stas", age:24, birthday: new Date(), man: true});
 									fel.core.async.waterfall([
 										function(callback){
@@ -68,7 +71,8 @@
 													});
 												},
 												function(callback){
-													User.find(function(obj){ return obj.age < 24; }, function(objs){
+													console.log("start finding...");
+													User.find(function(obj){ return obj.age < 25; }, function(objs){
 														console.log("finded by iterator", objs, typeof objs);
 													});
 												}
