@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Fel.js tests</title>
+    <link rel="stylesheet" href="mocha.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script src="../dist/fel.js"></script>
+    <script src="chai.js"></script>
+    <script src="mocha.js"></script>
+    <script>mocha.setup('bdd');mocha.setup({ignoreLeaks: true});</script>
+    <script src="test.core.models.js"></script> 
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>
