@@ -28,100 +28,31 @@
 									var User = fel.models.Model.define("User",{
 										age: "number",
 										man: "boolean",
+										birthday: "date",
 										messages: {model: "Message", many: true, key: "user"}
-									});
-									var User2 = User.inherit("User2", {
-										superman: "boolean"
 									});
 									//var User = app.models_manager.User;
 									User.remove_all();
-									User2.remove_all();
 									var Message = fel.models.Model.define("Message",{
 										value: "string",
 										user: {model: "User"} //relation
 									});
 									Message.remove_all();
-									/*var user2 = new User2({id: "boris", age: 23, superman: true});
-									user2.save(function(){
-										User2.all(function(u2s){
-											console.log("getted user2 objects", u2s);
-										});
-									});*/
-									User.save_all([{id: "ivan", age: 34}, {id: "kolyan", age: 22}], function(objs){
-										console.log("saved_all", objs);
-									});
 									var user1 = new User({id: "stas", age:24, birthday: new Date(), man: true});
-									fel.core.async.waterfall([
-										function(callback){
-											user1.save(function(obj){
-												obj.age = 23;
-												obj.save(function(new_obj){
-													console.log("saved", obj);
-													callback(null, new_obj);
-												});
-											});
-										},
-										function(obj){
-											fel.core.async.parallel([
-												function(callback){
-													var m = Message({id: "my_msg", value: "one more msg", user: "stas"})
-													m.save(function(m2){
-														User.get(obj.id, function(obj2){
-															console.log("getted", obj2, 
-																_.isBoolean(obj2.man), _.isNumber(obj2.age), _.isDate(obj2.birthday), 
-																	obj2.messages);
-															callback(null, obj2);
-														});
-														m2.value = "new value";
-														m2.save(function(){
-															Message.get("my_msg", function(m3){
-																console.log("message new value", m3.value, m3.id);
-															});
-														});
-													});
-												},
-												function(callback){
-													console.log("start finding...");
-													User.find(function(obj){ return obj.age < 25; }, function(objs){
-														console.log("finded by iterator", objs, typeof objs);
-													});
-												}
-											]);
-											/*User.get(obj.id, function(obj2){
-												console.log("getted", obj2, typeof obj2.man, typeof obj2.age);
-											});
-											User.find(function(obj){ return obj.age < 24; }, function(objs){
-												console.log("finded by iterator", objs, typeof objs);
-											});
-											User.find({"age": 23}, function(obj){
-												console.log("finded by example", obj, typeof obj);
-											});
-											User.exists("stas", function(is_exists){
-												console.log("exists", is_exists);
-											});*/
-										}
-									]);
-									fel.core.async.waterfall([
-									    function(callback){
-									        setTimeout(function() {
-									            console.log('f1 done');
-									            callback(null, 'data from f1');
-									        }, 100);
-									    },
-									    function(data, callback){
-									        // работа с data
-									        // или расширение цепочки через функцию f3, которая по окончании работы вызовет callback
-									        // f3(callback);
-									        console.log('f2 done');
-									        callback(null, 'done');
-									    }
-									], function (err, result) {
-									    // result now equals 'done'
-									    if (err) {
-									        // единое место для отлова ошибок
-									    }
-									    console.log(result);
-									});
+									user1.save();
+									user1.age = 23;
+									user1.save();
+									console.log("user", User.get("stas"), User.exists("stas"));
+									var m = Message({id: "my_msg", value: "one more msg", user: "stas"})
+									m.save();
+									console.log("all messages", Message.all());
+									var obj2 = User.get("stas");
+									console.log("getted user", obj2, _.isBoolean(obj2.man), 
+									 		_.isNumber(obj2.age), _.isDate(obj2.birthday), obj2.messages);
+									// m.value = "new value";
+									// m.save();
+									// console.log("message new value", Message.get("my_msg"));
+									// console.log("finded by iterator", User.find(function(obj){ return obj.age < 25; }));
 									setTimeout(function(){
 										app.var1 = "boris";
 									}, 2000);

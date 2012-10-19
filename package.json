@@ -10,7 +10,6 @@
     "eventemitter2": "latest",
     "underscore": "latest",
     "br-jquery": "latest",
-    "async": "latest",
     "dustjs-linkedin": "latest",
     "dustjs-helpers": "latest"
   },
