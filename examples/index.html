@@ -31,8 +31,13 @@
 										birthday: "date",
 										messages: {model: "Message", many: true, key: "user"}
 									});
-									//var User = app.models_manager.User;
 									User.remove_all();
+									var User2 = User.inherit("User2", {
+										superman: "boolean"
+									});
+									User2.remove_all();
+									var user2 = new User2({id: "boris", age:22, superman: true});
+									user2.save();
 									var Message = fel.models.Model.define("Message",{
 										value: "string",
 										user: {model: "User"} //relation
@@ -43,16 +48,18 @@
 									user1.age = 23;
 									user1.save();
 									console.log("user", User.get("stas"), User.exists("stas"));
-									var m = Message({id: "my_msg", value: "one more msg", user: "stas"})
+									var m = Message({id: "my_msg", value: "one more msg", user: "boris"})
 									m.save();
 									console.log("all messages", Message.all());
 									var obj2 = User.get("stas");
 									console.log("getted user", obj2, _.isBoolean(obj2.man), 
 									 		_.isNumber(obj2.age), _.isDate(obj2.birthday), obj2.messages);
-									// m.value = "new value";
-									// m.save();
-									// console.log("message new value", Message.get("my_msg"));
-									// console.log("finded by iterator", User.find(function(obj){ return obj.age < 25; }));
+									m.value = "new value";
+									m.save();
+									console.log("message new value", Message.get("my_msg"));
+									console.log("finded by iterator in user", User.find(function(obj){ return obj.age < 25; }));
+									console.log("finding user2 through user", User.get("boris"));
+									console.log("finded by iterator in user2", User2.find(function(obj){ return obj.age < 25; }));
 									setTimeout(function(){
 										app.var1 = "boris";
 									}, 2000);
