@@ -47,27 +47,36 @@
 											console.log("getted user2 objects", u2s);
 										});
 									});*/
-									User.save_all([{id: "ivan"}, {id: "kolyan"}], function(objs){
+									User.save_all([{id: "ivan", age: 34}, {id: "kolyan", age: 22}], function(objs){
 										console.log("saved_all", objs);
 									});
 									var user1 = new User({id: "stas", age:24, birthday: new Date(), man: true});
 									fel.core.async.waterfall([
 										function(callback){
 											user1.save(function(obj){
-												console.log("saved", obj);
-												callback(null, obj);
+												obj.age = 23;
+												obj.save(function(new_obj){
+													console.log("saved", obj);
+													callback(null, new_obj);
+												});
 											});
 										},
 										function(obj){
 											fel.core.async.parallel([
 												function(callback){
-													Message.save_all([{value: "one more msg", user: "stas"}, 
-														{value: "another msg", user: "stas"}], function(){
+													var m = Message({id: "my_msg", value: "one more msg", user: "stas"})
+													m.save(function(m2){
 														User.get(obj.id, function(obj2){
 															console.log("getted", obj2, 
 																_.isBoolean(obj2.man), _.isNumber(obj2.age), _.isDate(obj2.birthday), 
 																	obj2.messages);
 															callback(null, obj2);
+														});
+														m2.value = "new value";
+														m2.save(function(){
+															Message.get("my_msg", function(m3){
+																console.log("message new value", m3.value, m3.id);
+															});
 														});
 													});
 												},
