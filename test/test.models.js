@@ -1,7 +1,7 @@
 var should = chai.should();
 var expect = chai.expect;
 
-describe("core.models.Model", function(){
+describe("models.Model", function(){
 	var User = fel.models.Model.define("User",{
 		age: "number",
 		man: "boolean",
