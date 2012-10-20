@@ -7,17 +7,23 @@ describe("core.Object", function(){
 			this.name = name;
 		},
 		say: function(){
-			return "I'm {0}".f(this.name);
+			return "hi";
 		}
 	});
 	var Cat = Animal.extend({
 		say: function(){
-			return "myau";
+			return this.baseclass.say()+",myau";
 		}
 	});
-	var animal, cat;
+	var Man = Animal.extend({
+		__init__: function(name, age){
+			this.age = age;
+		}
+	});
+	var animal, cat, man;
 	before(function(){
 		cat = new Cat("murka");
+		man = new Man("stas", 24);
 	});
 	describe("init", function(){
 		it("should accept constructor params in init", function(){
@@ -26,7 +32,31 @@ describe("core.Object", function(){
 		});
 	});
 	describe("extend", function(){
-		it("should extend base class", function(){
+		it("should can call base class method", function(){
+			cat.say().should.equal("hi,myau");
+		});
+		it("should call base constructor by default", function(){
+			man.name.should.exist;
+			man.name.should.equal("stas");
+		});
+	});
+	describe("merge", function(){
+		it("should merge to objects", function(){
+			var options = {
+				views: {
+					templates: {},
+					translations: {},
+					lang: "ru"
+				}
+			};
+			var options2 = {
+				views: {
+					templates: {one: "lakdfj"},
+					translations: {ru: "lala"}
+				}
+			};
+			var new_options = fel.core.Object.merge(options, options2);
+			new_options.views.templates.one.should.equal(options2.views.templates.one);
 		});
 	});
 });
