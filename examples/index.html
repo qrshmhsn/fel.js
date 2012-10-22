@@ -22,7 +22,8 @@
 							},
 							events: {
 								"application.after_start": function(app){
-									console.log("app started!"); 
+									console.log("app started! hello {0}{1}".f("stas")); 
+									console.log("app started! hello {name}{surname}{1}".f({name:"stas"})); 
 									self.var1 = "first value";
 									setTimeout(function(){ self.var1 = "second value"; }, 1000);
 									var User = fel.models.Model.define("User",{
