@@ -24,7 +24,6 @@
 								"application.after_start": function(app){
 									console.log("app started! hello {0}{1}".f("stas")); 
 									console.log("app started! hello {name}{surname}{1}".f({name:"stas"})); 
-									self.var1 = "first value";
 									setTimeout(function(){ self.var1 = "second value"; }, 1000);
 									var User = fel.models.Model.define("User",{
 										age: "number",
@@ -89,6 +88,7 @@
 							}*/
 						};
 						self.start(options);
+						self.var1 = "first value";
 						console.log("tr", fel.views.Translator().translate("hello, {0}", "Stas"));
 					});
 				}
@@ -126,9 +126,9 @@
 			{/header}
 			{<content}
 				foo: {foo}<br/>
-				morph: <div id="morph">{@binding value="app.var1"/}</div>
-				morph2: <div>{@binding value="app.var1"/}</div>
-				<div>morph attr</div>
+				morph: <div id="morph">{@bind v="app.var1"/}</div>
+				morph2: <div>{@bind v="app.var1"/}</div>
+				<div {@bind v="app.var1" a="class"/}>morph attr</div>
 			    <ul data-role="listview">
 			        <li data-icon="false"><a href="#">Home</a></li>
 			        <li data-icon="false"><a href="#">About </a></li>
