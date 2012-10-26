@@ -95,6 +95,11 @@
 			});
 			window.app = new Application();
 			window.ChatController = fel.controllers.Controller.extend({
+				__init__: function(){
+					var self = this;
+					self.var2 = 555;
+					setTimeout(function(){ self.var2 = "ooop!"; }, 1000);
+				},
 				enter: function(state_manager){ 
 					console.log("entered to chat");
 					var v = new fel.views.View("main_page", {foo: "bar"});
@@ -129,6 +134,7 @@
 				morph: <div id="morph">{@bind v="app.var1"/}</div>
 				morph2: <div>{@bind v="app.var1"/}</div>
 				<div {@bind v="app.var1" a="class"/}>morph attr</div>
+				morph3: <div>{@bind v="var2"/}</div>
 			    <ul data-role="listview">
 			        <li data-icon="false"><a href="#">Home</a></li>
 			        <li data-icon="false"><a href="#">About </a></li>
