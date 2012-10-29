@@ -98,7 +98,11 @@
 				__init__: function(){
 					var self = this;
 					self.var2 = 555;
-					setTimeout(function(){ self.var2 = "ooop!"; }, 1000);
+					self.var3 = {name: "boris", age: 22};
+					setTimeout(function(){ 
+						self.var2 = "ooop!"; 
+						self.var3 = {name: "stas", age: 24};
+					}, 1000);
 				},
 				enter: function(state_manager){ 
 					console.log("entered to chat");
@@ -131,10 +135,11 @@
 			{/header}
 			{<content}
 				foo: {foo}<br/>
-				morph: <div id="morph">{@bind v="app.var1"/}</div>
-				morph2: <div>{@bind v="app.var1"/}</div>
-				<div {@bind v="app.var1" a="class"/}>morph attr</div>
-				morph3: <div>{@bind v="var2"/}</div>
+				morph: <div id="morph">{@bind var="app.var1"/}</div>
+				morph2: <div>{@bind var="app.var1"/}</div>
+				<div {@bind var="app.var1" attr="class"/}>morph attr</div>
+				morph3: <div>{@bind var="var2"/}</div>
+				render: {@render var="var3" template="item"/}
 			    <ul data-role="listview">
 			        <li data-icon="false"><a href="#">Home</a></li>
 			        <li data-icon="false"><a href="#">About </a></li>
@@ -142,6 +147,10 @@
 			        <li data-icon="false"><a href="#">Contact </a></li>
 			    </ul>
 			{/content}
+		</script>
+		<script data-name="item" type="text/x-template">
+			hey, its from template!<br/>
+			name: {name}, age: {age}
 		</script>
 	</head>
 	<body>
