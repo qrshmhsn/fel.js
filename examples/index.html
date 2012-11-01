@@ -108,6 +108,8 @@
 					console.log("entered to chat");
 					var v = new fel.views.View("main_page", {foo: "bar"});
 					v.render("#container");
+					var t = fel.views.View("another_item");
+					t.append("#state");
 					state_manager.event("send");
 				},
 				send: function(){ console.log("i sent msg!"); }
@@ -140,7 +142,7 @@
 				<div {@bind var="app.var1" attr="class"/}>morph attr</div>
 				morph3: <div>{@bind var="var2"/}</div>
 				render: {@render var="var3" template="item"/}
-				<div id="state"></div>
+				<div id="state">hey</div>
 			    <ul data-role="listview">
 			        <li data-icon="false"><a href="#">Home</a></li>
 			        <li data-icon="false"><a href="#">About </a></li>
@@ -154,7 +156,7 @@
 			name: {name}, age: {age}
 		</script>
 		<script data-name="another_item" type="text/x-template">
-			current state: 
+			current state: {@bind var="app.state_manager.current"/}
 		</script>
 	</head>
 	<body>
