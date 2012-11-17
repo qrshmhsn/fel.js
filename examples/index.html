@@ -118,7 +118,7 @@
 		<script data-name="page" type="text/x-template">
 			<div data-role="page">
 				<div data-role="header" data-position="fixed" style="text-align: center;">
-					{{#block "header"}}{{/block}}
+					{{#block "header"}}base header{{/block}}
 				</div>
 				<div data-role="content">
 					{{#block "content"}}{{/block}}
@@ -130,6 +130,7 @@
 		</script>
 		<script data-name="main_page" type="text/x-template">
 			{{#override "header"}}
+				{{>header}}
 				<h3>{{trans "main"}}</h3>
 				<h2>{{#filters "trans,title"}}main{{/filters}}</h2>
 			{{/override}}
