@@ -118,30 +118,28 @@
 		<script data-name="page" type="text/x-template">
 			<div data-role="page">
 				<div data-role="header" data-position="fixed" style="text-align: center;">
-					{+header}{/header}
+					{{#block "header"}}{{/block}}
 				</div>
 				<div data-role="content">
-					{+content}{/content}
+					{{#block "content"}}{{/block}}
 				</div>
 				<div data-role="footer" data-position="fixed">
-					{+footer}{/footer}
+					{{#block "footer"}}{{/block}}
 				</div>
 			</div>
 		</script>
 		<script data-name="main_page" type="text/x-template">
-			{>page/}
-			{<header}
-				{@set v="main" a="55"/}
-				<h3>{@trans value="main" filters="title,test"/}</h3>
-				<h2>{v|trans|title}</h2>
-			{/header}
-			{<content}
-				foo: {foo}<br/>
-				morph: <div id="morph">{@bind var="app.var1"/}</div>
-				morph2: <div>{@bind var="app.var1"/}</div>
-				<div {@bind var="app.var1" attr="class"/}>morph attr</div>
-				morph3: <div>{@bind var="var2"/}</div>
-				render: {@render var="var3" template="item"/}
+			{{#override "header"}}
+				<h3>{{trans "main"}}</h3>
+				<h2>{{#filters "trans,title"}}main{{/filters}}</h2>
+			{{/override}}
+			{{#override "content"}}
+				foo: {{foo}}<br/>
+				morph: <div id="morph">{{bind "app.var1"}}</div>
+				morph2: <div>{{bind "app.var1"}}</div>
+				<div {{bind "app.var1" "class"}}>morph attr</div>
+				morph3: <div>{{bind "var2"}}</div>
+				render: {{render "var3" "item"}}
 				<div id="state">hey</div>
 			    <ul data-role="listview">
 			        <li data-icon="false"><a href="#">Home</a></li>
@@ -149,14 +147,15 @@
 			        <li data-icon="false"><a href="#">Portfolio </a></li>
 			        <li data-icon="false"><a href="#">Contact </a></li>
 			    </ul>
-			{/content}
+			{{/override}}
+			{{extend "page"}}
 		</script>
 		<script data-name="item" type="text/x-template">
 			hey, its from template!<br/>
-			name: {name}, age: {age}
+			name: {{name}}, age: {{age}}
 		</script>
 		<script data-name="another_item" type="text/x-template">
-			current state: {@bind var="app.state_manager.current"/}
+			current state: {{bind "app.state_manager.current"}}
 		</script>
 	</head>
 	<body>
