@@ -63,6 +63,7 @@
 									setTimeout(function(){
 										app.var1 = "boris";
 									}, 2000);
+									//fel.models.Model.clear();
 								}
 							},
 							controllers:{
@@ -77,15 +78,10 @@
 									},
 									chat: ChatController
 								}
-							}/*,
+							},
 							models: {
-								User: {
-									id: "string",
-									age: "number",
-									man: "boolean",
-									birthday: "date"
-								}
-							}*/
+								database: "fel_example"
+							}
 						};
 						self.start(options);
 						self.var1 = "first value";
