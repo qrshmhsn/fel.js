@@ -84,6 +84,19 @@ describe("models.Model", function(){
 			objs.should.have.length(0);
 		});
 	});
+	describe("all", function(){
+		it("should get all object", function(){
+			User.remove_all();
+			var user = new User({id: "boris", age: 25});
+			user.save();
+			var user2 = new User({id: "sergo", age:22, birthday: new Date(), man: true, superman: true});
+			user2.save();
+			var objs = User.all();
+			objs.should.exist;
+			objs.should.be.a("array");
+			objs.should.have.length(2);
+		});
+	});
 	describe("remove", function(){
 		beforeEach(function(){
 			user = new User({id: "stas"});
