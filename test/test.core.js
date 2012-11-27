@@ -1,4 +1,3 @@
-var should = chai.should();
 var expect = chai.expect;
 
 describe("core.Object", function(){
@@ -27,17 +26,17 @@ describe("core.Object", function(){
 	});
 	describe("init", function(){
 		it("should accept constructor params in init", function(){
-			cat.should.exist;
-			cat.name.should.equal("murka");
+			expect(cat).exist;
+			expect(cat.name).equal("murka");
 		});
 	});
 	describe("extend", function(){
 		it("should can call base class method", function(){
-			cat.say().should.equal("hi,myau");
+			expect(cat.say()).equal("hi,myau");
 		});
 		it("should call base constructor by default", function(){
-			man.name.should.exist;
-			man.name.should.equal("stas");
+			expect(man.name).exist;
+			expect(man.name).equal("stas");
 		});
 	});
 	describe("merge", function(){
@@ -56,7 +55,7 @@ describe("core.Object", function(){
 				}
 			};
 			var new_options = fel.core.Object.merge(options, options2);
-			new_options.views.templates.one.should.equal(options2.views.templates.one);
+			expect(new_options.views.templates.one).equal(options2.views.templates.one);
 		});
 	});
 });
@@ -69,7 +68,7 @@ describe("core.SingletonObject", function(){
 	it("should exist only one instance of singleton", function(){
 		var single = new Single(555);
 		var single2 = new Single(77);
-		single.should.equal(single2);
-		single.val.should.equal(single2.val);
+		expect(single).equal(single2);
+		expect(single.val).equal(single2.val);
 	});
 });

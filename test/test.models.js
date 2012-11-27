@@ -1,4 +1,3 @@
-var should = chai.should();
 var expect = chai.expect;
 
 describe("models.Model", function(){
@@ -31,27 +30,27 @@ describe("models.Model", function(){
 			get_user = User.get("stas");
 		});
 		it("should return model by id", function(){
-			get_user.should.exist;
-			get_user.id.should.be.a("string");
+			expect(get_user).exist;
+			expect(get_user.id).be.a("string");
 		});
 		it("should return date field as date", function(){
-			get_user.birthday.should.be.a("date");
+			expect(get_user.birthday).be.a("date");
 		});
 		it("should return many relation field as collection of models", function(){
-			get_user.messages.should.exist;
-			get_user.messages.should.have.length(1);
-			get_user.messages[0].id.should.equal(message.id);
+			expect(get_user.messages).exist;
+			expect(get_user.messages).have.length(1);
+			expect(get_user.messages[0].id).equal(message.id);
 		});
 		it("should return boolean field as boolean", function(){
-			get_user.man.should.be.a("boolean");
+			expect(get_user.man).be.a("boolean");
 		});
 		it("should return number field as number", function(){
-			get_user.age.should.be.a("number");
+			expect(get_user.age).be.a("number");
 		});
 		it("should support inheritance and return also children obj", function(){
 			var inh_user = User.get(user2.id);
-			inh_user.should.exist;
-			inh_user.id.should.equal(user2.id);
+			expect(inh_user).exist;
+			expect(inh_user.id).equal(user2.id);
 		});
 	});
 	describe("save", function(){
@@ -64,24 +63,24 @@ describe("models.Model", function(){
 			var saving_user = new User({id: "boris", age: 25});
 			saving_user.save();
 			var getted_u = User.get(saving_user.id);
-			getted_u.should.exist;
-			getted_u.id.should.equal(saving_user.id);
+			expect(getted_u).exist;
+			expect(getted_u.id).equal(saving_user.id);
 		});
 	});
 	describe("find", function(){
 		it("should find objects by filter function, also with inheritance", function(){
 			var objs = User.find(function(obj){return obj.age < 25;});
-			objs.should.exist;
-			objs.should.be.a("array");
-			objs.should.have.length(2);
+			expect(objs).exist;
+			expect(objs).be.a("array");
+			expect(objs).have.length(2);
 		});
 		it("should find objects by example", function(){
 			var objs = User.find({age: 26});
-			objs.should.exist;
-			objs.should.be.a("array");
-			objs.should.have.length(1);
+			expect(objs).exist;
+			expect(objs).be.a("array");
+			expect(objs).have.length(1);
 			objs = User.find({man: false});
-			objs.should.have.length(0);
+			expect(objs).have.length(0);
 		});
 	});
 	describe("all", function(){
@@ -92,9 +91,9 @@ describe("models.Model", function(){
 			var user2 = new User({id: "sergo", age:22, birthday: new Date(), man: true, superman: true});
 			user2.save();
 			var objs = User.all();
-			objs.should.exist;
-			objs.should.be.a("array");
-			objs.should.have.length(2);
+			expect(objs).exist;
+			expect(objs).be.a("array");
+			expect(objs).have.length(2);
 		});
 	});
 	describe("remove", function(){
@@ -103,7 +102,7 @@ describe("models.Model", function(){
 			user.save();
 		});
 		it("should delete model by id", function(){
-			User.get(user.id).should.exist;
+			expect(User.get(user.id)).exist;
 			User.remove(user.id);
 			var removed_user = User.get(user.id);
 			expect(removed_user).not.exist;
@@ -111,7 +110,7 @@ describe("models.Model", function(){
 		it("should delete all models", function(){
 			User.remove_all();
 			var users = User.all();
-			users.should.have.length(0);
+			expect(users).have.length(0);
 		});
 	});
 	after(function(){
